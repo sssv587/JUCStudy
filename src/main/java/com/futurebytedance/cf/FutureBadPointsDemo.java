@@ -10,6 +10,11 @@ import java.util.concurrent.TimeUnit;
  * @Description FutureTask的缺点
  * 1.get容易导致阻塞,一般建议放在程序后面,一旦调用不见不散,非要等到结果才会离开,不管你是否计算完成,容易程序堵塞
  * 2.假如我不愿意等到很长时间,我希望过时不候,可以自动离开
+ * 3.isDone轮询的方式会耗费无谓的CPU资源,而且也不见得能及时的得到计算结果
+ * 如果想要异步获取结果,通常都会以轮询的方式去获取结果,尽量不要阻塞
+ *
+ *
+ * Future对于结果的获取不是很友好,只能通过阻塞或轮询的方式得到任务的结果
  */
 public class FutureBadPointsDemo {
     public static void main(String[] args) throws Exception {
@@ -33,7 +38,19 @@ public class FutureBadPointsDemo {
         System.out.println(Thread.currentThread().getName() + "\t ------忙其他任务了");
 
 //        System.out.println(futureTask.get());
+
         //Exception in thread "main" java.util.concurrent.TimeoutException
-        System.out.println(futureTask.get(3, TimeUnit.SECONDS));
+//        System.out.println(futureTask.get(3, TimeUnit.SECONDS));
+
+        while (true) {
+            if (futureTask.isDone()) {
+                System.out.println(futureTask.get());
+                break;
+            } else {
+                //暂停毫秒
+                try {TimeUnit.MILLISECONDS.sleep(500);} catch (Exception e) {e.printStackTrace();}
+                System.out.println("正在处理中,不要再催了,越催越慢,再催熄火");
+            }
+        }
     }
 }

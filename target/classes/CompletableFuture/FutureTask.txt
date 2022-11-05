@@ -8,3 +8,7 @@ Future接口和FutureTask实现类
 
 首先RunnableFuture接口继承了Runnable接口与Future接口,满足了多线程、异步任务
 同时,FutureTask中使用构造注入了Callable接口,即可满足上面三个条件
+
+Future编码实战优缺点分析
+- 优点
+    -

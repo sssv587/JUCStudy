@@ -5,3 +5,6 @@ Callable接口：有返回值、抛异常
 Future接口和FutureTask实现类
 
 目的:异步多线程任务执行且返回有结果,三个特点:多线程、有返回、异步任务
+
+首先RunnableFuture接口继承了Runnable接口与Future接口,满足了多线程、异步任务
+同时,FutureTask中使用构造注入了Callable接口,即可满足上面三个条件

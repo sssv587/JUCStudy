@@ -30,8 +30,10 @@ CompletableFuture的优点:
         3.public T join(); 不见不散,不需要抛异常
         4.public T getNow(T valueIfAbsent); 计算完,返回计算完成后的结果;没算完,返回设定的valueIfAbsent值
     主动触发计算
-        1.public boolean complete(T value);
+        1.public boolean complete(T value);如果执行完了,返回正常结果和false;返回complete的value值和false
 2.对计算结果进行处理
+    1.thenApply:计算结果存在依赖关系,这个线程串行化;异常相关(直接中止)
+    2.handle:计算结果存在依赖关系,这个线程串行化;异常相关
 3.对计算结果进行消费
 4.对计算速度进行选用
 5.对计算结果进行合并

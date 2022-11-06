@@ -6,7 +6,7 @@ import java.util.concurrent.*;
  * @author yuhang.sun
  * @version 1.0
  * @date 2022/11/6 - 22:26
- * @Description CompletableFutureUse的使用
+ * @Description CompletableFuture的使用
  */
 public class CompletableFutureUseDemo {
     public static void main(String[] args) {

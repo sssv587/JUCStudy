@@ -21,3 +21,17 @@ CompletableFuture的优点:
 1.异步任务结束时,会自动回调某个对象的方法
 2.主线程设置好回调后,不再关心异步任务的执行,异步任务之前可以顺序执行
 3.异步任务出错时,会自动调用某个对象的方法
+
+常用方法
+1.获得结果和触发计算
+    获取结果
+        1.public T get(); 不见不散,需要抛异常
+        2.public T get(long timeout,TimeUnit unit); 过时不候,需要抛异常
+        3.public T join(); 不见不散,不需要抛异常
+        4.public T getNow(T valueIfAbsent); 计算完,返回计算完成后的结果;没算完,返回设定的valueIfAbsent值
+    主动触发计算
+        1.public boolean complete(T value);
+2.对计算结果进行处理
+3.对计算结果进行消费
+4.对计算速度进行选用
+5.对计算结果进行合并

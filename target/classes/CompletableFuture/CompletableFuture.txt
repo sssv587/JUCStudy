@@ -48,5 +48,8 @@ CompletableFuture的优点:
                 调用thenRunAsync执行第二个任务时,则第一个任务使用的是你自己传入的线程池,第二个任务使用的是ForkJoin线程池
             3.有可能处理太快,系统优化切换原则,直接使用main线程处理
 4.对计算速度进行选用
-    1.applyToEither
+    1.public <U> CompletableFuture<U> applyToEither(CompletionStage<? extends T> other, Function<? super T, U> fn):谁快用谁
 5.对计算结果进行合并
+两个CompletionStage任务都完成后,最终能把两个任务的结果一起交给thenCombine来处理
+先完成的先等着,等待其他分支任务
+    1.public <U,V> CompletableFuture<V> thenCombine(CompletionStage<? extends U> other,BiFunction<? super T,? super U,? extends V> fn)

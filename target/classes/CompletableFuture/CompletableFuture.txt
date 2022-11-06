@@ -40,5 +40,11 @@ CompletableFuture的优点:
         thenRun(Runnable runnable):任务A执行完执行B,并且B不需要A的结果
         thenAccept(Consumer action):任务A执行完执行B,B需要A的结果,但是任务B无返回值
         thenApply(Function fn):任务A执行完执行B,B需要A的结果,同时任务B有返回值
+        xxxSync:
+            1.没有传入自定义线程池,都用默认线程池ForkJoinPool
+            2.传入了一个自定义线程池
+                如果执行第一个任务的时候,传入了一个自定义线程池
+                调用thenRun方法执行第二个任务时,则第二个任务和第一个任务是共用一个线程池
+                调用thenRunAsync执行第二个任务时,则第一个任务使用的是你自己传入的线程池,第二个任务使用的是ForkJoin线程池
 4.对计算速度进行选用
 5.对计算结果进行合并

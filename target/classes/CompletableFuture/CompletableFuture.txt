@@ -33,7 +33,12 @@ CompletableFuture的优点:
         1.public boolean complete(T value);如果执行完了,返回正常结果和false;返回complete的value值和false
 2.对计算结果进行处理
     1.thenApply:计算结果存在依赖关系,这个线程串行化;异常相关(直接中止)
-    2.handle:计算结果存在依赖关系,这个线程串行化;异常相关
+    2.handle:计算结果存在依赖关系,这个线程串行化;异常相关(有异常也可以向下走一步)
 3.对计算结果进行消费
+    1.thenAccept:接收任务的处理结果,并消费处理,无返回结果
+    Code任务之间的顺序执行:
+        thenRun(Runnable runnable):任务A执行完执行B,并且B不需要A的结果
+        thenAccept(Consumer action):任务A执行完执行B,B需要A的结果,但是任务B无返回值
+        thenApply(Function fn):任务A执行完执行B,B需要A的结果,同时任务B有返回值
 4.对计算速度进行选用
 5.对计算结果进行合并

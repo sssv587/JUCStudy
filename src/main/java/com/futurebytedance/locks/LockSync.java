@@ -4,7 +4,8 @@ package com.futurebytedance.locks;
  * @author yuhang.sun
  * @version 1.0
  * @date 2022/11/8 - 0:45
- * @Description synchronized字节码分析
+ * @Description synchronized字节码与原语分析
+ * synchronized字节码分析
  * 1.同步代码块
  *  javap -c .\LockSync.class(m1方法)
  *    public void m1();
@@ -44,16 +45,32 @@ package com.futurebytedance.locks;
  *     descriptor: ()V
  *     flags: ACC_PUBLIC, ACC_STATIC, ACC_SYNCHRONIZED
  *   ACC_STATIC, ACC_SYNCHRONIZED访问标识区分该方法是否静态同步方法
+ *
+ *
+ *  什么是管程monitor?
+ *  原语分析:
+ *  ObjectMonitor.java -> ObjectMonitor.cpp -> ObjectMonitor.hpp
+ *  ObjectMonitor.hpp
+ *  每个对象天生都带着一个对象监视器
+ *  每一个被锁住的对象都会和Monitor关联起来
+ *
+ *  ObjectMonitor中有几个关键属性：
+ *  1._owner:指向持有ObjectMonitor对象的线程
+ *  2._WaitSet:存放处于wait状态的线程队列
+ *  3._EntryList:存放处于等待锁block状态的线程队列
+ *  4._recursions:锁的重入次数
+ *  5._count:用来记录线程获取锁的次数
  */
 public class LockSync {
-//    Object object = new Object();
-//
-//    public void m1(){
-//        synchronized (object){
-//            System.out.println("---hello synchronized lock");
-//            throw new RuntimeException("---exp");
-//        }
-//    }
+    Object object = new Object();
+    Book b1 = new Book();
+
+    public void m1(){
+        synchronized (object){
+            System.out.println("---hello synchronized lock");
+            throw new RuntimeException("---exp");
+        }
+    }
 
     public synchronized void m2(){
         System.out.println("---hello synchronized lock m2");
@@ -67,4 +84,8 @@ public class LockSync {
     public static void main(String[] args) {
 
     }
+}
+
+class Book extends Object{
+    //java = (C++) --
 }

@@ -1,7 +1,14 @@
 Thread类下的三个方法:
 1.public void interrupt()
+    实例方法,实例方法interrupt()仅仅是设置线程的中断状态为true,不会停止线程
 2.public static boolean interrupted()
+    静态方法,Thread.interrupted();
+    判断线程是否被中断,并清除当前中断状态
+    这个方法做了两件事:
+        1.返回当前线程的中断状态
+        2.将当前线程的中断状态设为false
 3.public boolean isInterrupted()
+    实例方法,判断当前线程是否被中断（通过检查中断标志位）
 
 首先
     一个线程不应该由其他线程来强制中断或停止,而是应该由线程自己自行停止。所以,Thread.stop,Thread.suspend,Thread.resume 都已经被废弃了。

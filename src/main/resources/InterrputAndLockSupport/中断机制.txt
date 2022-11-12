@@ -43,3 +43,20 @@ Thread类下的三个方法:
     那么线程将立即退出被阻塞状态,并抛出一个InterruptedException异常。
 
 3.静态方法Thread.interrupted(),谈谈你的理解
+判断线程是否被中断,并清除当前中断状态,类似i++,这个方法做了两件事:
+中断标识被清空,如果该方法被连续调用两次,第二次调用将返回false
+除非当前线程在第一次和第二次调用该方法之间再次被interrupt
+    1.返回当前线程的中断状态
+    2.将当前线程的中断状态设为false
+
+4.静态方法与实例方法interrupted的区别
+//中断状态将会根据传入的ClearInterrupted参数值确定是否重置,如果传递的是false,代表不清除中断标志位,反之,清理中断标志位
+public static boolean interrupted() {
+        return currentThread().isInterrupted(true);
+}
+
+public boolean isInterrupted() {
+        return isInterrupted(false);
+}
+
+private native boolean isInterrupted(boolean ClearInterrupted);

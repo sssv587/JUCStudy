@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  *
  * 2.如果线程处于被阻塞状态（例如处于sleep, wait, join 等状态），在别的线程中调用当前线程对象的interrupt方法，
  * 那么线程将立即退出被阻塞状态，并抛出一个InterruptedException异常。
+ *
+ * 总结:中断只是一种协商机制,修改中断标志位仅此而已,不是立刻stop打断
  */
 public class InterruptDemo2 {
     public static void main(String[] args) {

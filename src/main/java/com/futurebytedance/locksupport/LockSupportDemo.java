@@ -3,6 +3,7 @@ package com.futurebytedance.locksupport;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -34,6 +35,13 @@ public class LockSupportDemo {
     public static void main(String[] args) {
 //        syncWaitNotify();
 
+//        lockAwaitSignal();
+
+        LockSupport.park();
+//        LockSupport.unpark();
+    }
+
+    private static void lockAwaitSignal() {
         Lock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
 

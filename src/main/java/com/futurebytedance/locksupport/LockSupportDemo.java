@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>
  * 总结:wait和notify方法必须要在同步块或者方法里面,且成对出现使用
  * 先wait后notify才OK
- *
+ * <p>
  * 2.await和signal实现等待和唤醒
  * 异常1:
  * 去掉lock/unlock
@@ -27,9 +27,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * 先signal后await
  * 总结:Condition中的线程等待和唤醒方法,需要先获取锁
  * 一定要先await后signal,不要反了
- *
+ * <p>
  * 两个对象Object和Condition使用的限制条件
- * 1.线程先要获得并持有锁,必须在锁块(synchronized或lock)中,必须要先等待后唤醒,线程才能够被唤醒
+ *   线程先要获得并持有锁,必须在锁块(synchronized或lock)中,必须要先等待后唤醒,线程才能够被唤醒
+ *
+ * 3.LockSupport的park与unpark方法
+ * 正常+无锁块要求
+ * 之前错误的先唤醒后等待,LockSupport照样支持
+ * 成双成对要牢记
  */
 public class LockSupportDemo {
     public static void main(String[] args) {
@@ -37,8 +42,25 @@ public class LockSupportDemo {
 
 //        lockAwaitSignal();
 
-        LockSupport.park();
-//        LockSupport.unpark();
+        Thread t1 = new Thread(() -> {
+            try {TimeUnit.MILLISECONDS.sleep(3000);} catch (Exception e) {e.printStackTrace();}
+            System.out.println(Thread.currentThread().getName() + "\t ....come in" + System.currentTimeMillis());
+            LockSupport.park();
+            System.out.println(Thread.currentThread().getName() + "\t ....被唤醒" + System.currentTimeMillis());
+        }, "t1");
+
+        t1.start();
+
+//        try {
+//            TimeUnit.MILLISECONDS.sleep(1000);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        new Thread(() -> {
+            LockSupport.unpark(t1);
+            System.out.println(Thread.currentThread().getName() + "\t ...发出通知");
+        }, "t2").start();
     }
 
     private static void lockAwaitSignal() {

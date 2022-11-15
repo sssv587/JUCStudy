@@ -27,3 +27,8 @@
 - 状态标志，判断业务是否结束
 - 开销较低的读，写锁策略
 - DCL双端锁的发布
+
+5.一句话总结volatile
+volatile写之前的操作,都禁止重排序到volatile之后
+volatile读之后的操作,都禁止重排序到volatile之前
+volatile写之后volatile读,禁止重排序的

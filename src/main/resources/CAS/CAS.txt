@@ -4,3 +4,14 @@ compare and swap的缩写,中文翻译成比较并交换,实现并发算法时�
 执行CAS操作的时候,将内存位置的值与预期原值比较:
     1)如果相匹配,那么处理器会自动将该位置值更新为新值
     2)如果不匹配,处理器不做任何操作,多个线程同时执行CAS操作只有一个会成功
+
+2.compareAndSet()方法的源代码
+public final native boolean compareAndSwapObject(Object var1, long var2, Object var4, Object var5);
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);
+public final native boolean compareAndSwapLong(Object var1, long var2, long var4, long var6);
+上面三个方法都是类似的，主要对4个参数做一下说明。
+var1:表示要操作的对象
+var2:表示要操作对象中属性地址的偏移量
+var4:表示需要修改数据的期望的值
+var5/var6:表示需要修改为的新值
+

@@ -40,3 +40,16 @@
 化整为零,分散热点,降低更新热点
 统计求和的话:result=base+Cell数组
 上述两者全部,才是最后结果
+
+7.LongAdder原码分析
+public void add(long x) {
+    //as表示cells引用,b表示获取的base值,v表示期望值,m表示cells数组的长度,a表示当前线程中的cell单元格
+    Cell[] as; long b, v; int m; Cell a;
+    if ((as = cells) != null || !casBase(b = base, b + x)) {
+        boolean uncontended = true;
+        if (as == null || (m = as.length - 1) < 0 ||
+            (a = as[getProbe() & m]) == null ||
+            !(uncontended = a.cas(v = a.value, v + x)))
+            longAccumulate(x, null, uncontended);
+    }
+}

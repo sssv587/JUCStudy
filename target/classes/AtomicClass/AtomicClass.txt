@@ -31,3 +31,7 @@
   - 原子更新引用类型字段的值
 
 5.原子操作增强类原理深度解析
+- DoubleAccumulator
+- DoubleAdder
+- LongAccumulator
+- LongAdder

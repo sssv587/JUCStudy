@@ -35,3 +35,8 @@
 - DoubleAdder
 - LongAccumulator
 - LongAdder
+
+6.原子类LongAdder高性能原理说明
+化整为零,分散热点,降低更新热点
+统计求和的话:result=base+Cell数组
+上述两者全部,才是最后结果

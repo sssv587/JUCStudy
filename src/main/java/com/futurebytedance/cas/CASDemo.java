@@ -14,5 +14,7 @@ public class CASDemo {
 
         System.out.println(atomicInteger.compareAndSet(5, 2022) + "\t" + atomicInteger.get());
         System.out.println(atomicInteger.compareAndSet(5, 2022) + "\t" + atomicInteger.get());
+
+        System.out.println(atomicInteger.getAndIncrement());
     }
 }

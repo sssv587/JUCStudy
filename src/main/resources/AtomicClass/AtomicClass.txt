@@ -9,5 +9,14 @@
 - AtomicReferenceArray
 
 3.引用类型原子类
+- AtomicReference
+- AtomicStampedReference
+    - 携带版本号的引用类型原子类，可以解决ABA问题
+    - 解决修改过几次
+    - 状态戳原子引用
+- AtomicMarkableReference
+    - 原子更新带有标记位的引用类型对象
+    - 解决是否修改过 它的定义就是将状态戳简化为true|false -- 类似一次性筷子
+
 4.对象的属性修改原子类
 5.原子操作增强类原理深度解析

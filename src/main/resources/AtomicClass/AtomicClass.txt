@@ -61,6 +61,10 @@ public void add(long x) {
     if ((as = cells) != null || !casBase(b = base, b + x)) {
         // true无竞争 false表示竞争激烈,多个线程hash到同一个Cell,可能要扩容
         boolean uncontended = true;
+        //条件1:cells为空
+        //条件2:应该不会出现
+        //条件3:当前线程所在的Cell为空,说明当前线程还没有更新过Cell,应初始化一个Cell
+        //条件4:更新当前线程所在的Cell失败,说明现在竞争很激烈,多个线程hash到了同一个Cell,应扩容
         if (as == null || (m = as.length - 1) < 0 ||
             // getProbe()方法返回的是线程中的threadLocalRandomProbe字段
             // 它是通过随机数生成的一个值,对于一个确定的线程这个值是固定的(除非刻意修改它)

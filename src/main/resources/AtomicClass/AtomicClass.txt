@@ -141,6 +141,7 @@ final void longAccumulate(long x, LongBinaryOperator fn, boolean wasUncontended)
         else if (cellsBusy == 0 && cells == as && casCellsBusy()) {
             boolean init = false;
             try {                           // Initialize table
+            //双端检索
                 if (cells == as) {
                     Cell[] rs = new Cell[2];
                     rs[h & 1] = new Cell(x);

@@ -73,6 +73,11 @@ public void add(long x) {
     }
 }
 
+1.如果Cells表为空,常使用CAS更新base字段,成功则退出
+2.如果Cells表为空,CAS更新base字段失败,出现竞争,uncontended为true,调用longAccumulate
+3.如果Cells表非空,但当前线程映射的槽为空,uncontended为true,调用longAccumulate
+4.如果Cells表非空,且当前线程映射的槽非空,CAS更新Cell的值,成功则返回,否则,uncontended设为false,调用longAccumulate
+
 final void longAccumulate(long x, LongBinaryOperator fn, boolean wasUncontended) {
     int h;
     if ((h = getProbe()) == 0) {

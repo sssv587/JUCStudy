@@ -13,3 +13,26 @@ ThreadLocalMap从字面上就可以看出这是一个保存ThreadLocal对象的m
 强引用:当内存不足，JVM开始垃圾回收,对于强引用的对象,就算是出现了OOM也不会对该对象进行回收,死都不收
 软引用:对于只有软引用的对象来说,当系统内存充足时它 不会被回收,当系统内存不足时它会被回收
 弱引用:对于只有弱引用的对象来说,只要垃圾回收机制一运行,不管JVM的内存空间是否足够,都会回收该对象占用的内存
+虚引用:PhantomReference的get方法总是返回null
+      它不能单独使用也不能通过它访问对象,虚引用必须和引用队列(ReferenceQueue)联合使用
+      其意义在于:说明一个对象已经进入finalization阶段,可以被gc回收,用来实现比finalization机制更灵活的回收操作
+
+4.ThreadLocal为什么源码用弱引用
+public void function01()
+{
+    ThreadLocal tl = new ThreadLocal<Integer>();    //line1
+    tl.set(2021);                                   //line2
+    tl.get();                                       //line3
+}
+//line1新建了一个ThreadLocal对象，t1 是强引用指向这个对象；
+//line2调用set()方法后新建一个Entry，通过源码可知Entry对象里的k是弱引用指向这个对象。
+
+当function01方法执行完毕后,栈帧销毁强引用tl也就没有了。
+但此时线程的ThreadLocalMap里某个entry的key引用还指向这个对象,
+若这个key引用是强引用,就会导致key指向的ThreadLocal对象及v指向的对象不能被gc回收,造成内存泄漏；
+若这个key引用是弱引用就大概率会减少内存泄漏的问题(还有一个key为null的雷)。
+使用弱引用,就可以使ThreadLocal对象在方法执行完毕后顺利被回收且Entry的key引用指向为null。
+
+5.ThreadLocal之清除脏Entry
+从前面的set,getEntry,remove方法看出,在threadLocal的生命周期里,针对threadLocal存在的内存泄漏的问题,
+都会通过expungeStaleEntry,cleanSomeSlots,replaceStaleEntry这三个方法清理掉key为null的脏entry

@@ -1,7 +1,8 @@
 package com.futurebytedance.threadlocal;
 
-import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
+import java.lang.ref.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,6 +13,9 @@ import java.util.concurrent.TimeUnit;
  * 强引用:当内存不足，JVM开始垃圾回收,对于强引用的对象,就算是出现了OOM也不会对该对象进行回收,死都不收
  * 软引用:对于只有软引用的对象来说,当系统内存充足时它 不会被回收,当系统内存不足时它会被回收
  * 弱引用:对于只有弱引用的对象来说,只要垃圾回收机制一运行,不管JVM的内存空间是否足够,都会回收该对象占用的内存
+ * 虚引用:PhantomReference的get方法总是返回null
+ *       它不能单独使用也不能通过它访问对象,虚引用必须和引用队列(ReferenceQueue)联合使用
+ *       其意义在于:说明一个对象已经进入finalization阶段,可以被gc回收,用来实现比finalization机制更灵活的回收操作
  *
  * 软引用和弱引用的适用场景
  *      假如有一个应用需要读取大量的本地图片:
@@ -25,6 +29,39 @@ public class ReferenceDemo {
     public static void main(String[] args) {
 //        strongReference();
 //        softReference();
+//        weakReference();
+        phantomReference();
+    }
+
+    private static void phantomReference() {
+        MyObject myObject = new MyObject();
+        ReferenceQueue<MyObject> referenceQueue = new ReferenceQueue<>();
+        PhantomReference<MyObject> phantomReference = new PhantomReference<>(myObject, referenceQueue);
+
+//        System.out.println(phantomReference.get());//null
+
+        List<byte[]> list = new ArrayList<>();
+
+        new Thread(() -> {
+            while (true){
+                list.add(new byte[1024 * 1024 * 1024]);
+                try {TimeUnit.MILLISECONDS.sleep(500);} catch (Exception e) {e.printStackTrace();}
+                System.out.println(phantomReference.get() + "\t" + "list add ok");
+            }
+        },"t1").start();
+
+        new Thread(() -> {
+            while (true) {
+                Reference<? extends MyObject> reference = referenceQueue.poll();
+                if (reference != null) {
+                    System.out.println("-------有虚对象回收加入了队列");
+                    break;
+                }
+            }
+        }, "t2").start();
+    }
+
+    private static void weakReference() {
         WeakReference<MyObject> weakReference = new WeakReference<>(new MyObject());
         System.out.println("-------gc before 内存够用:" + weakReference.get());
 

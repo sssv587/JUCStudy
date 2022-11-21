@@ -32,3 +32,7 @@ public void function01()
 若这个key引用是强引用,就会导致key指向的ThreadLocal对象及v指向的对象不能被gc回收,造成内存泄漏；
 若这个key引用是弱引用就大概率会减少内存泄漏的问题(还有一个key为null的雷)。
 使用弱引用,就可以使ThreadLocal对象在方法执行完毕后顺利被回收且Entry的key引用指向为null。
+
+5.ThreadLocal之清除脏Entry
+从前面的set,getEntry,remove方法看出,在threadLocal的生命周期里,针对threadLocal存在的内存泄漏的问题,
+都会通过expungeStaleEntry,cleanSomeSlots,replaceStaleEntry这三个方法清理掉key为null的脏entry

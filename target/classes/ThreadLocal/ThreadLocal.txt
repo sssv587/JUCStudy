@@ -2,3 +2,10 @@
 ThreadLocal提供线程局部变量。
 这些变量与正常的变量不同,因为每一个线程在访问ThreadLocal实例的时候(通过其get或set方法)都有自己的、独立初始化的变量副本。
 ThreadLocal实例通常是类中的私有静态字段,使用它的目的是希望将状态(例如，用户ID或事务ID)与线程关联起来
+
+2.Thread、ThreadLocal、ThreadLocalMap关系.png
+ThreadLocalMap从字面上就可以看出这是一个保存ThreadLocal对象的map(其实是以ThreadLocal为Key),
+不过是经过了两层包装的ThreadLocal对象
+
+3.什么是内存泄漏?
+不再会被使用的对象或者变量占用的内存不能被回收,就是内存泄漏

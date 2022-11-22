@@ -18,5 +18,12 @@ public class ObjectHeadDemo {
         }
 
         System.gc();//手动手机垃圾。。。。。15次可以从新生代---养老区
+
+        Customer c1 = new Customer();
+        Customer c2 = new Customer();
+        Customer c3 = new Customer();
     }
+}
+
+class Customer { //只有一个对象头的实例对象,没有属性
 }

@@ -25,5 +25,7 @@ public class ObjectHeadDemo {
     }
 }
 
-class Customer { //只有一个对象头的实例对象,没有属性
+class Customer { //只有一个对象头的实例对象(没有属性),16个字节(忽略压缩指针的影响)+4字节+1字节=21字节==>对齐填充,24字节
+    int id;
+    boolean flag = false;
 }

@@ -1,0 +1,1 @@
+synchronized锁:由对象头中的Mark Word根据锁标志位的不同而被复用及锁升级策略

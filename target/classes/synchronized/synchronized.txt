@@ -1,0 +1,6 @@
+synchronized锁:由对象头中的Mark Word根据锁标志位的不同而被复用及锁升级策略
+
+1.锁升级(结合锁升级.png)
+偏向锁:MarkWord存储的是偏向的线程ID
+轻量锁:MarkWord存储的是指向线程栈中Lock Record的指针
+重量锁:MarkWord存储的是指向堆中的monitor对象的指针

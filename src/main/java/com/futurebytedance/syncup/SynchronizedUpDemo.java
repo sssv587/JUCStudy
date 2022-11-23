@@ -2,6 +2,8 @@ package com.futurebytedance.syncup;
 
 import org.openjdk.jol.info.ClassLayout;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author yuhang.sun
  * @version 1.0
@@ -12,13 +14,31 @@ public class SynchronizedUpDemo {
     public static void main(String[] args) {
 //        noLock();
 
-        //演示偏向锁:-XX:BiasedLockingStartupDelay=0即可
+        //演示偏向锁2:睡眠5s,默认4s后才会启动偏向锁
+        try {
+            TimeUnit.MILLISECONDS.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //演示偏向锁1:-XX:BiasedLockingStartupDelay=0即可
         //biased
         Object o = new Object();
 
-        synchronized (o){
-            System.out.println(ClassLayout.parseInstance(o).toPrintable());
-        }
+//        synchronized (o){
+//            System.out.println(ClassLayout.parseInstance(o).toPrintable());
+//        }
+
+        //第一种情况:可以看到,锁状态为101可偏向锁状态了,只是由于o对象未用synchronized加锁,所以线程id是空的
+        System.out.println(ClassLayout.parseInstance(o).toPrintable());
+
+        System.out.println("=============================================");
+
+        //第二种情况:偏向锁带线程id的情况,第一行中后面不再是0了,有了线程id的值
+        new Thread(() -> {
+            synchronized (o){
+                System.out.println(ClassLayout.parseInstance(o).toPrintable());
+            }
+        }, "t1").start();
     }
 
     //无锁

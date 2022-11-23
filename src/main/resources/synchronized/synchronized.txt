@@ -4,3 +4,6 @@ synchronized锁:由对象头中的Mark Word根据锁标志位的不同而被复�
 偏向锁:MarkWord存储的是偏向的线程ID
 轻量锁:MarkWord存储的是指向线程栈中Lock Record的指针
 重量锁:MarkWord存储的是指向堆中的monitor对象的指针
+
+2.偏向锁
+当一段同步代码一直被同一个线程多次访问,由于只有一个线程那么该线程在后续访问时便会自动获得锁

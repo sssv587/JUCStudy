@@ -8,12 +8,23 @@ import java.util.concurrent.TimeUnit;
  * @author yuhang.sun
  * @version 1.0
  * @date 2022/11/23 - 0:40
- * @Description 锁升级之无锁、偏向锁
+ * @Description 锁升级之无锁、偏向锁、轻量锁
  */
 public class SynchronizedUpDemo {
     public static void main(String[] args) {
 //        noLock();
+//        biasedLock();
 
+        Object o = new Object();
+        new Thread(() -> {
+            synchronized (o){
+                System.out.println(ClassLayout.parseInstance(o).toPrintable());
+            }
+        },"t1").start();
+    }
+
+    //偏向锁
+    private static void biasedLock() {
         //演示偏向锁2:睡眠5s,默认4s后才会启动偏向锁
         try {
             TimeUnit.MILLISECONDS.sleep(5000);

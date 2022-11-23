@@ -6,10 +6,23 @@ import org.openjdk.jol.info.ClassLayout;
  * @author yuhang.sun
  * @version 1.0
  * @date 2022/11/23 - 0:40
- * @Description 锁升级之无锁
+ * @Description 锁升级之无锁、偏向锁
  */
 public class SynchronizedUpDemo {
     public static void main(String[] args) {
+//        noLock();
+
+        //演示偏向锁:-XX:BiasedLockingStartupDelay=0即可
+        //biased
+        Object o = new Object();
+
+        synchronized (o){
+            System.out.println(ClassLayout.parseInstance(o).toPrintable());
+        }
+    }
+
+    //无锁
+    private static void noLock() {
         Object o = new Object();
 
         System.out.println("10进制:" + o.hashCode());

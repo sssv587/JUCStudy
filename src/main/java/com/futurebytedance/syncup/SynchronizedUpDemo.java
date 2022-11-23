@@ -8,19 +8,47 @@ import java.util.concurrent.TimeUnit;
  * @author yuhang.sun
  * @version 1.0
  * @date 2022/11/23 - 0:40
- * @Description 锁升级之无锁、偏向锁、轻量锁
+ * @Description 锁升级之无锁、偏向锁、轻量锁、重量锁
  */
 public class SynchronizedUpDemo {
+    static final Object o = new Object();
+
     public static void main(String[] args) {
 //        noLock();
 //        biasedLock();
+//        lightWeightLock();
+        heavyWeightLock();
+    }
 
-        Object o = new Object();
+    //重量级锁
+    private static void heavyWeightLock() {
         new Thread(() -> {
-            synchronized (o){
+            synchronized (o) {
                 System.out.println(ClassLayout.parseInstance(o).toPrintable());
             }
-        },"t1").start();
+        }, "t1").start();
+
+        new Thread(() -> {
+            synchronized (o) {
+                System.out.println(ClassLayout.parseInstance(o).toPrintable());
+            }
+        }, "t2").start();
+
+        new Thread(() -> {
+            synchronized (o) {
+                System.out.println(ClassLayout.parseInstance(o).toPrintable());
+            }
+        }, "t3").start();
+    }
+
+    //轻量级锁
+    private static void lightWeightLock() {
+        Object o = new Object();
+        new Thread(() -> {
+            synchronized (o) {
+                System.out.println(ClassLayout.parseInstance(o).toPrintable());
+            }
+        }, "t1").start();
     }
 
     //偏向锁
@@ -46,7 +74,7 @@ public class SynchronizedUpDemo {
 
         //第二种情况:偏向锁带线程id的情况,第一行中后面不再是0了,有了线程id的值
         new Thread(() -> {
-            synchronized (o){
+            synchronized (o) {
                 System.out.println(ClassLayout.parseInstance(o).toPrintable());
             }
         }, "t1").start();

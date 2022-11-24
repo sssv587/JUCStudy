@@ -5,3 +5,8 @@ CLH:Craig、Landin and Hagersten 队列,是一个单向链表,AQS中的队列是
 
 2.AQS同步队列的基本结构
 是CLH变体的虚拟双向队列FIFO
+
+3.AQS的state与CLH队列
+AQS的同步状态State成员变量:private volatile int state;
+AQS的CLH队列:CLH队列(三个大牛的名字组成),为一个双向队列
+有阻塞就需要排队，实现排队必然需要队列

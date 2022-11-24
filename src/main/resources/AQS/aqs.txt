@@ -10,3 +10,6 @@ CLH:Craig、Landin and Hagersten 队列,是一个单向链表,AQS中的队列是
 AQS的同步状态State成员变量:private volatile int state;
 AQS的CLH队列:CLH队列(三个大牛的名字组成),为一个双向队列
 有阻塞就需要排队，实现排队必然需要队列
+
+4.AQS自身属性和Node节点介绍
+AQS自身属性和Node节点介绍.png

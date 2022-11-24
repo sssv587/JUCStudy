@@ -13,3 +13,7 @@ AQS的CLH队列:CLH队列(三个大牛的名字组成),为一个双向队列
 
 4.AQS自身属性和Node节点介绍
 AQS自身属性和Node节点介绍.png
+
+5.AQS源码分析
+1)可以明显看出公平锁与非公平锁的lock()方法唯一的区别就在于公平锁在获取同步状态时多了一个限制条件:hasQueuedPredecessors()
+  hasQueuedPredecessors是公平锁加锁时判断等待队列中是否存在有效节点的方法

@@ -23,3 +23,4 @@ public final void acquire(int arg) {
         acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
         selfInterrupt();
 }
+3)第二个节点进入以后,会走AQS的private Node addWaiter(Node mode)方法

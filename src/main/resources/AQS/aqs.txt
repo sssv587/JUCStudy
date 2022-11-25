@@ -28,4 +28,4 @@ public final void acquire(int arg) {
 5)第一个节点执行完成后,会调用unlock()方法
 public void unlock() {
       sync.release(1);
-} 会调用LockSupport.unpark()方法
+} 会调用LockSupport.unpark()方法进行解锁

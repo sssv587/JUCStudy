@@ -24,3 +24,4 @@ public final void acquire(int arg) {
         selfInterrupt();
 }
 3)第二个节点进入以后,会走AQS的private Node addWaiter(Node mode)方法
+4)然后会进入private final boolean parkAndCheckInterrupt()方法,LockSupport的park()方法

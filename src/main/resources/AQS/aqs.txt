@@ -25,3 +25,7 @@ public final void acquire(int arg) {
 }
 3)第二个节点进入以后,会走AQS的private Node addWaiter(Node mode)方法
 4)然后会进入private final boolean parkAndCheckInterrupt()方法,LockSupport的park()方法
+5)第一个节点执行完成后,会调用unlock()方法
+public void unlock() {
+      sync.release(1);
+} 会调用LockSupport.unpark()方法

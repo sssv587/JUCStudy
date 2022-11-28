@@ -21,3 +21,5 @@ JUC基础
 3)Lock可以让等待锁的线程响应中断,而synchronized却不行,使用synchronized时,等待的线程会一直等待下去,不能够响应中断
 4)通过 Lock 可以知道有没有成功获取锁，而 synchronized 却无法办到
 5)Lock 可以提高多个线程进行读操作的效率
+
+5.线程间通信

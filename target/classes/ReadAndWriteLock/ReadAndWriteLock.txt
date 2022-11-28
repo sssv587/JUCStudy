@@ -19,6 +19,11 @@ ReentrantReadWriteLock只允许读读共存,而读写和谢谢依然是互斥的
     - Reading(读模式):功能和ReentrantReadWriteLock的读锁类似
     - Writing(写模式):功能和ReentrantReadWriteLock的写锁类似
     - Optimistic reading(乐观读模式):无锁机制,类似于数据库中的乐观锁,支持读写并发,很乐观认为读取时没人修改,假如被修改再实现升级为悲观读模式
+缺点:
+    - StampedLock 不支持重入,没有Re开头
+    - StampedLock 的悲观读锁和写锁都不支持条件变量(Condition),这个也需要注意。
+    - 使用 StampedLock一定不要调用中断操作,即不要调用interrupt() 方法
+      - 如果需要支持中断功能,一定使用可中断的悲观读锁 readLockInterruptibly()和写锁writeLockInterruptibly()
 
 4.ReentrantReadWriteLock有锁降级机制,是什么?
 可以查看该类Oracle提供的代码

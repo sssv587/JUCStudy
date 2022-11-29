@@ -30,3 +30,5 @@ wait、notify、notifyAll
 1)使用Vector集合
 2)使用Collections解决:List<String> list = Collections.synchronizedList(new ArrayList<>());
 3)使用CopyOnWriteArrayList解决,写时复制技术
+
+HashSet(CopyOnWriteArraySet解决)与HashMap(ConcurrentHashMap解决)线程不安全

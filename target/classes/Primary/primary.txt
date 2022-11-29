@@ -23,3 +23,4 @@ JUC基础
 5)Lock 可以提高多个线程进行读操作的效率
 
 5.线程间通信
+wait、notify、notifyAll

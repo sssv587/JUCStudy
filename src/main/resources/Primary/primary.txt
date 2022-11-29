@@ -25,3 +25,8 @@ JUC基础
 5.线程间通信
 wait、notify、notifyAll
 线程间定制化通信:lock.ThreadDemo3.java
+
+6.集合的线程安全(ArrayList)
+1)使用Vector集合
+2)使用Collections解决:List<String> list = Collections.synchronizedList(new ArrayList<>());
+3)使用CopyOnWriteArrayList解决,写时复制技术

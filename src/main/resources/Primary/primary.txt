@@ -42,3 +42,14 @@ HashSet(CopyOnWriteArraySet解决)与HashMap(ConcurrentHashMap解决)线程不�
 验证是否是死锁,两个命令:
     1)jps
     2)jstack(jvm自带的堆栈跟踪工具) + 进程ID
+
+8.创建线程的多种方式
+1)Thread类
+2)实现Runnable接口
+3)实现Callable接口
+4)线程池
+
+Runnable接口和Callable接口
+1)是否有返回值,Callable接口有返回值
+2)是否抛出异常,Callable接口会抛出异常
+3)实现方法名称不同,一个run方法,一个是call方法

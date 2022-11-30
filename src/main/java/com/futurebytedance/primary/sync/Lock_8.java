@@ -1,4 +1,4 @@
-package com.futurebytedance.primary.lock;
+package com.futurebytedance.primary.sync;
 
 import java.util.concurrent.TimeUnit;
 

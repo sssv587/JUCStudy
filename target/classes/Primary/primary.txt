@@ -31,4 +31,4 @@ wait、notify、notifyAll
 2)使用Collections解决:List<String> list = Collections.synchronizedList(new ArrayList<>());
 3)使用CopyOnWriteArrayList解决,写时复制技术
 
-HashSet与HashMap线程不安全
+HashSet(CopyOnWriteArraySet解决)与HashMap(ConcurrentHashMap解决)线程不安全

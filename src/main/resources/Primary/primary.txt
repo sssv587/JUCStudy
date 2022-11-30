@@ -32,3 +32,13 @@ wait、notify、notifyAll
 3)使用CopyOnWriteArrayList解决,写时复制技术
 
 HashSet(CopyOnWriteArraySet解决)与HashMap(ConcurrentHashMap解决)线程不安全
+
+7.死锁
+两个或者两个以上的进程在执行过程中,因为争夺资源而造成一种互相等待的现象,如果没有外力干涉,他们无法再执行下去
+产生死锁的原因:
+    1)系统资源不足
+    2)进程运行推进顺序不合适
+    3)资源分配不当
+验证是否是死锁,两个命令:
+    1)jps
+    2)jstack(jvm自带的堆栈跟踪工具) + 进程ID

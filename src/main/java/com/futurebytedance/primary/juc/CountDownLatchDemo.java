@@ -7,6 +7,10 @@ import java.util.concurrent.CountDownLatch;
  * @version 1.0
  * @date 2022/12/1 - 22:50
  * @Description CountDownLatch
+ * CountDownLatch类可以设置一个计数器，然后通过 countDown方法来进行减1的操作，使用await方法等待计数器不大于0，然后继续执行await方法之后的语句。
+ *   CountDownLatch 主要有两个方法，当一个或多个线程调用 await 方法时，这些线程会阻塞
+ *   其它线程调用 countDown 方法会将计数器减 1(调用 countDown 方法的线程不会阻塞)
+ *   当计数器的值变为 0 时，因 await 方法阻塞的线程会被唤醒，继续执行
  */
 public class CountDownLatchDemo {
     //6个同学陆续离开教室之后，班长锁门

@@ -7,6 +7,9 @@ import java.util.concurrent.CyclicBarrier;
  * @version 1.0
  * @date 2022/12/1 - 23:07
  * @Description CyclicBarrier
+ * CyclicBarrier 看英文单词可以看出大概就是循环阻塞的意思，在使用中 CyclicBarrier 的构造方法第一个参数是目标障碍数，
+ * 每次执行 CyclicBarrier 一次障碍数会加一，如果达到了目标障碍数，才会执行 cyclicBarrier.await()之后
+ * 的语句。可以将 CyclicBarrier 理解为加 1 操作
  */
 public class CyclicBarrierDemo {
     //集齐7颗龙珠就可以召唤神龙

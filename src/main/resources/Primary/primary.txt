@@ -65,4 +65,6 @@ Runnable接口和Callable接口
                 CyclicBarrier 的构造方法第一个参数是目标障碍数，每次执行 CyclicBarrier 一
                 次障碍数会加一，如果达到了目标障碍数，才会执行 cyclicBarrier.await()之后
                 的语句。可以将 CyclicBarrier 理解为加 1 操作
-3)Semaphore
+3)Semaphore:
+Semaphore 的构造方法中传入的第一个参数是最大信号量(可以看成最大线程池),每个信号量初始化为一个最多只能分发一个许可证。
+使用 acquire 方法获得许可证,release 方法释放许可

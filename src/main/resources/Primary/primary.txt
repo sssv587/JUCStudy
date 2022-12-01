@@ -53,3 +53,13 @@ Runnable接口和Callable接口
 1)是否有返回值,Callable接口有返回值
 2)是否抛出异常,Callable接口会抛出异常
 3)实现方法名称不同,一个run方法,一个是call方法
+
+9.三大辅助类
+1)CountDownLatch:CountDownLatch 类可以设置一个计数器，然后通过 countDown 方法来进行
+                 减 1 的操作，使用 await 方法等待计数器不大于 0，然后继续执行 await 方法
+                 之后的语句。
+  • CountDownLatch 主要有两个方法，当一个或多个线程调用 await 方法时，这些线程会阻塞
+  • 其它线程调用 countDown 方法会将计数器减 1(调用 countDown 方法的线程不会阻塞)
+  • 当计数器的值变为 0 时，因 await 方法阻塞的线程会被唤醒，继续执行
+2)CyclicBarrier
+3)Semaphore
